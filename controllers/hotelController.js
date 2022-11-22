@@ -1,6 +1,6 @@
 import Hotel from "../models/Hotel.js";
 
-export const createHotel = async (req, res) => {
+export const createHotel = async (req, res, next) => {
     try {
         const newHotel = await Hotel.create(req.body);
 
@@ -13,10 +13,7 @@ export const createHotel = async (req, res) => {
             });
         }
     } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: error,
-        });
+        next(error);
     }
 };
 
@@ -36,7 +33,7 @@ export const getHotels = async (req, res, next) => {
     }
 };
 
-export const updateHotel = async (req, res) => {
+export const updateHotel = async (req, res, next) => {
     try {
         const { id } = req.params;
 
@@ -52,14 +49,11 @@ export const updateHotel = async (req, res) => {
             },
         });
     } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: error,
-        });
+        next(error);
     }
 };
 
-export const deleteHotel = async (req, res) => {
+export const deleteHotel = async (req, res, next) => {
     try {
         const { id } = req.params;
 
@@ -70,10 +64,7 @@ export const deleteHotel = async (req, res) => {
             message: "DELETED",
         });
     } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: error,
-        });
+        next(error);
     }
 };
 
